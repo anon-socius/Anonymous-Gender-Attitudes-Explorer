@@ -1,4 +1,4 @@
-# Looking for the Gender Attitude Explorer Tool? [Click here!](https://anon-socius.github.io/Anonymous-Gender-Attitude-Explorer/)
+# Looking for the Gender Attitude Explorer Tool? [Click here!](https://anon-socius.github.io/Anonymous-Gender-Attitudes-Explorer/)
 
 ## [Appendices] Gender Attitudes by Generation
 
@@ -43,11 +43,11 @@ Greatest Generation:  1910 - 1927
 
 #### 1. Gender Attitude Explorer Tool (GAET)
 
-To use GAET, please click [here](https://anon-socius.github.io/Anonymous-Gender-Attitude-Explorer)
+To use GAET, please click [here](https://anon-socius.github.io/Anonymous-Gender-Attitudes-Explorer/)
 
 ##### a. What is GAET
 
-[GAET](https://anon-socius.github.io/Anonymous-Gender-Attitude-Explorer) is a tool we developed to (1) encourage interaction with the data and (2) expedite the process of creating compact data visualizations for projects with many datasets.
+[GAET](https://anon-socius.github.io/Anonymous-Gender-Attitudes-Explorer/) is a tool we developed to (1) encourage interaction with the data and (2) expedite the process of creating compact data visualizations for projects with many datasets.
 In this instance, we have generated gender attitude trend lines in four domains: Abortion, Sexual Behavior, Political Gender Roles, and Family Responsibilities. These trends lines reflect the mean, standard deviation, and frequency of GSS respondent data from 1973 to 2018. Additionally, the trend lines may be filtered by generation, gender, and political alignment. Using this tool, we are easily able to quickly generate visualizations of *N* trend lines:  
 
 ```
