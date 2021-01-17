@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Gender Attitudes Explorer</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
+    <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+
+<body>
+    <div class="mainContainer">
+        <div id="scaleContainerGroup" class="scaleContainerGroup">
+            <div id="abscale_lab" class="scaleContainer scaleSelected" onclick="selectLabel(this.id, `abscale`)">
+                Abortion
+            </div>
+            <div id="sexatt_lab" class="scaleContainer" onclick="selectLabel(this.id, `sexatt`)">
+                Sexual Behavior
+            </div>
+            <div id="genrole_lab" class="scaleContainer" onclick="selectLabel(this.id, `genrole`)">
+                Political Gender Roles
+            </div>
+            <div id="famresp_lab" class="scaleContainer" onclick="selectLabel(this.id, `famresp`)">
+                Family Responsibilities
+            </div>
+            <div class="statisticTypeGroup">
+                <div id="mean_lab" class="statContainer statContainerSelected" onclick="selectStat(this.id, `M`)">
+                    Mean
+                </div>
+                <div id="sd_lab" class="statContainer" onclick="selectStat(this.id, `S`)">
+                    Std. Dev.
+                </div>
+                <div id="freq_lab" class="statContainer" onclick="selectStat(this.id, `F`)">
+                    Freq.
+                </div>
+            </div>
+        </div>
+        <div class="chartContainer">
+            <div class="chartFilters" id="chartFilters">
+                <div class="chartFilterContainer">
+                    <div class="chartFilter filter4" id="polviews" onclick="populateMenu(`polview_list`)"> Filters <span class="filterCaret" style="font-size: 10px"> &#x25bc; </span> </div>
+                    <div class="pubpriv_list filter_list" id="polview_list">
+                        <div class="filter_header"> Political Alignment </div>
+                        <div class="filter_item_container item_wide" onclick="updateParameters(`pol`, `Conservative`, [`50_101`])">
+                            <span class="enabled_check" id="50_101"> ✓ </span>
+                            <span class="filter_item"> Conservative </span>
+                        </div>
+                        <div class="filter_item_container item_wide" onclick="updateParameters(`pol`, `Liberal`, [`50_102`])">
+                            <span class="enabled_check" id="50_102"> ✓ </span>
+                            <span class="filter_item"> Liberal </span>
+                        </div>
+                        <div class="filter_item_container item_wide" onclick="updateParameters(`pol`, `Moderate`, [`50_103`])">
+                            <span class="enabled_check" id="50_103"> ✓ </span>
+                            <span class="filter_item"> Moderate </span>
+                        </div>
+                        <hr>
+                        <div class="filter_header"> Gender </div>
+                        <div class="filter_item_container item_wide" onclick="updateParameters(`genders`, `Men`, [`75_101`])">
+                            <span class="enabled_check" id="75_101"> ✓ </span>
+                            <span class="filter_item"> Men </span>
+                        </div>
+                        <div class="filter_item_container item_wide" onclick="updateParameters(`genders`, `Women`, [`75_100`])">
+                            <span class="enabled_check" id="75_100"> ✓ </span>
+                            <span class="filter_item"> Women </span>
+                        </div>
+                        <hr>
+                        <div class="filter_header"> Generations </div>
+                        <div class="filter_item_container item_wide" onclick="updateParameters(`generation`, `Lost`, [`60_101`])">
+                            <span class="enabled_check showCheck" id="60_101"> ✓ </span>
+                            <span class="filter_item"> Lost Generation (1890 - 1909) </span>
+                        </div>
+                        <div class="filter_item_container item_wide" onclick="updateParameters(`generation`, `Greatest`, [`60_102`])">
+                            <span class="enabled_check showCheck" id="60_102"> ✓ </span>
+                            <span class="filter_item"> Greatest Generation (1910 - 1927) </span>
+                        </div>
+                        <div class="filter_item_container item_wide" onclick="updateParameters(`generation`, `Silent`, [`60_103`])">
+                            <span class="enabled_check showCheck" id="60_103"> ✓ </span>
+                            <span class="filter_item"> Silent Generation (1928 - 1945) </span>
+                        </div>
+                        <div class="filter_item_container item_wide" onclick="updateParameters(`generation`, `Boomers`, [`60_104`])">
+                            <span class="enabled_check showCheck" id="60_104"> ✓ </span>
+                            <span class="filter_item"> Baby Boomers (1946 - 1964) </span>
+                        </div>
+                        <div class="filter_item_container item_wide" onclick="updateParameters(`generation`, `GenX`, [`60_105`])">
+                            <span class="enabled_check showCheck" id="60_105"> ✓ </span>
+                            <span class="filter_item"> Generation X (1965 - 1980) </span>
+                        </div>
+                        <div class="filter_item_container item_wide" onclick="updateParameters(`generation`, `Millenial`, [`60_106`])">
+                            <span class="enabled_check showCheck" id="60_106"> ✓ </span>
+                            <span class="filter_item"> Millenials (1981 - 1996) </span>
+                        </div>
+                        <div class="filter_item_container item_wide" onclick="updateParameters(`generation`, `GenZ`, [`60_107`])">
+                            <span class="enabled_check showCheck" id="60_107"> ✓ </span>
+                            <span class="filter_item"> Generation Z (1997 - 2021) </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="buttonContainer">
+                    <button class="button_c button_b" onclick="selectData()"> Generate </button>
+                    <button class="button_c button_d" onclick="clearAll()"> Reset </button>
+                </div>
+            </div>
+            <div style="height: 700px;">
+                <canvas class="myChart" id="myChart"></canvas>
+            </div>
+            <div style="padding: 20px; font-size: 14px;"> * All means have been rescaled to range from 0 to 10. The upper bound represents more liberal attitudes, while the lower bound represents more conservative attitudes. The questions with which these scales are constructed can be found below. </div>
+        </div>
+        <div class="extraInfoContainer">
+            <div id="abscale_extra">
+                <h3> Abortion Attitude Question Phrasing (α = 0.89) </h3>
+                <ol>
+                    <li>
+                        <p>Please tell me whether or not you think it should be possible for a pregnant woman to obtain a legal abortion if the family has a very low income and cannot afford any more children? (<strong>GSS Variable:</strong> <a href="https://gssdataexplorer.norc.org/variables/604/vshow">abpoor</a>)</p>
+                    </li>
+                    <li>
+                        <p>Please tell me whether or not you think it should be possible for a pregnant woman to obtain a legal abortion if the woman's own health is seriously endangered by the pregnancy? (<strong>GSS Variable:</strong> <a href="https://gssdataexplorer.norc.org/variables/603/vshow">abhlth</a>)</p>
+                    </li>
+                    <li>
+                        <p>Please tell me whether or not you think it should be possible for a pregnant woman to obtain a legal abortion if she is married and does not want any more children? (<strong>GSS Variable:</strong> <a href="https://gssdataexplorer.norc.org/variables/602/vshow">abnomore</a>)</p>
+                    </li>
+                    <li>
+                        <p>Please tell me whether or not you think it should be possible for a pregnant woman to obtain a legal abortion if there is a strong chance of serious defect in the baby? (<strong>GSS Variable:</strong> <a href="https://gssdataexplorer.norc.org/variables/601/vshow">abdefect</a>)</p>
+                    </li>
+                    <li>
+                        <p>Please tell me whether or not you think it should be possible for a pregnant woman to obtain a legal abortion if she became pregnant as a result of rape? (<strong>GSS Variable:</strong> <a href="https://gssdataexplorer.norc.org/variables/605/vshow">abrape</a>)</p>
+                    </li>
+                    <li>
+                        <p>Please tell me whether or not you think it should be possible for a pregnant woman to obtain a legal abortion if she is not married and does not want to marry the man? (<strong>GSS Variable:</strong> <a href="https://gssdataexplorer.norc.org/variables/606/vshow">absingle</a>)</p>
+                    </li>
+                    <li>
+                        <p>Please tell me whether or not you think it should be possible for a pregnant woman to obtain a legal abortion if the woman wants it for any reason? (<strong>GSS Variable:</strong> <a href="https://gssdataexplorer.norc.org/variables/607/vshow">abany</a>)</p>
+                    </li>
+                </ol>
+            </div>
+            <div id="sexatt_extra" class="hide">
+                <h3> Sexual Behavior Attitudes Question Phrasing (α = 0.66) </h3>
+                <ol>
+                    <li>
+                        <p>Would you be for or against sex education in the public schools? (<strong>GSS Variable:</strong> <a href="https://gssdataexplorer.norc.org/variables/626/vshow">sexeduc</a>)</p>
+                    </li>
+                    <li>
+                        <p>There's been a lot of discussion about the way morals and attitudes about sex are changing in this country. If a man and woman have sex relations before marriage, do you think it is always wrong, almost always wrong, wrong only sometimes, or not wrong at all? (<strong>GSS Variable:</strong> <a href="https://gssdataexplorer.norc.org/variables/631/vshow">premarsx</a>)</p>
+                    </li>
+                    <li>
+                        <p>Questions associated with this variable: There's been a lot of discussion about the way morals and attitudes about sex are changing in this country. If a man and woman have sex relations before marriage, do you think it is always wrong, almost always wrong, wrong only sometimes, or not wrong at all? A. What if they are in their early teens, say 14 to 16 years old? In that case, do you think sex relations before marriage are always wrong, almost always wrong, wrong only sometimes, or not wrong at all? (<strong>GSS Variable:</strong> <a href="https://gssdataexplorer.norc.org/variables/632/vshow">teensex</a>)</p>
+                    </li>
+                    <li>
+                        <p>What about sexual relations between two adults of the same sex--do you think it is always wrong, almost always wrong, wrong only sometimes, or not wrong at all? (<strong>GSS Variable:</strong> <a href="https://gssdataexplorer.norc.org/variables/634/vshow">homosex</a>)</p>
+                    </li>
+                    <li>
+                        <p>What is your opinion about a married person having sexual relations with someone other than the marriage partner--is it always wrong, almost always wrong, wrong only sometimes, or not wrong at all? (<strong>GSS Variable:</strong> <a href="https://gssdataexplorer.norc.org/variables/633/vshow">xmarsex</a>)</p>
+                    </li>
+                </ol>
+            </div>
+            <div id="genrole_extra" class="hide">
+                <h3> Gender Roles Attitudes Question Phrasing </h3>
+                <ol>
+                    <li>Tell me if you agree or disagree with this statement: Most men are better suited emotionally for politics than are most women. (<strong>GSS Variable:</strong> <a href="https://gssdataexplorer.norc.org/variables/591/vshow">fepol</a>)</li>
+                </ol>
+            </div>
+            <div id="famresp_extra" class="hide">
+                <h3> Family Responsibility Attitudes Question Phrasing (α‎ = 0.73) </h3>
+                <ol>
+                    <li>
+                        <p>A working mother can establish just as warm and secure a relationship with her children as a mother who does not work. (<strong>GSS Variable:</strong> <a href="https://gssdataexplorer.norc.org/variables/703/vshow">fechld</a>)</p>
+                    </li>
+                    <li>
+                        <p>A preschool child is likely to suffer if his or her mother works. (<strong>GSS Variable:</strong> <a href="https://gssdataexplorer.norc.org/variables/705/vshow">fepresch</a>)</p>
+                    </li>
+                    <li>
+                        <p>It is much better for everyone involved if the man is the achiever outside the home and the woman takes care of the home and family. (<strong>GSS Variable:</strong> <a href="https://gssdataexplorer.norc.org/variables/706/vshow">fefam</a>)</p>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script type="text/javascript" src="index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+</body>
+
+</html>
